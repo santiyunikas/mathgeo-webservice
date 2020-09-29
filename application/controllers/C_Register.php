@@ -5,14 +5,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 require APPPATH . '/libraries/REST_Controller.php';
 use Restserver\Libraries\REST_Controller;
 
-class C_Member extends REST_Controller {
+class C_Register extends REST_Controller {
 
     function __construct($config = 'rest') {
         parent::__construct($config);
         $this->load->database();
     }
 
-    //Menampilkan data kontak
+    //Menampilkan menggunakan id
     function index_get() {
         $id = $this->get('id_member');
         if ($id == '') {
@@ -24,7 +24,7 @@ class C_Member extends REST_Controller {
         $this->response($member, 200);
     }
 
-    //Mengirim atau menambah data kontak baru
+    //Mengirim atau menambah data baru
     function index_post() {
         $data = array(
             'id_member'=>$this->post('id_member'),
