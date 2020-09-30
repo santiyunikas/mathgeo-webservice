@@ -41,17 +41,13 @@ class C_Login extends REST_Controller {
         }
     }
 
-    //Memperbaharui data yang telah ada
+    //Memperbaharui password
     function index_put() {
-        $id = $this->put('id_member');
+        $email = $this->put('email');
         $data = array(
-            'id_member'=>$this->put('id_member'),
-            'email'=> $this->put('email'),
             'password'=> $this->put('password'),
-            'nama_lengkap'=> $this->put('nama_lengkap'),
-            'nomor_telepon'=> $this->put('nomor_telepon')
                 );
-        $this->db->where('id_member', $id);
+        $this->db->where('email', $email);
         $update = $this->db->update('member', $data);
         if ($update) {
             $this->response($data, 200);
