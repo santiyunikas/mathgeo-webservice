@@ -36,6 +36,48 @@ class C_Register extends REST_Controller {
         $insert = $this->db->insert('member', $data);
         if ($insert) {
             $this->response($data, 200);
+            $verify_data = array(
+                'email'=> $this->post('email'),
+                'active'=> 0
+            );
+
+            $insert_verify = $this->db->insert('is_verified_member', $verify_data);
+            if($insert_verify){
+                $to = $data['email'];
+                $subject = 'Santi dari MathGeo';
+                $message = '
+                Dear '.$data['nama_lengkap'].'
+
+                Terimakasih telah melakukan registrasi!
+                Akun kamu sudah dibuat, kamu bisa login menggunakan email dan password dibawah ini
+
+                -----------------------------------
+                Email: '.$data['email'].'
+                Password: '.$data['password'].'
+                -----------------------------------
+
+                Klik link dibawah ini untuk mengaktifkan akun kamu:
+                https://mathgeo.ub-learningtechnology.com/verify.php?email='.$data['email'].'
+
+                Selamat belajar dengan tekun
+
+
+
+                Salam,
+                
+                Santi
+
+                MathGeo Developer
+
+                ps: Abaikan email ini jika kamu merasa tidak melakukan registrasi.
+                Balas email ini untuk informasi lebih lanjut.
+
+                ';
+                $headers = 'From:sysufiana@gmail.com'."\r\n";
+                mail($to, $subject, $message, $headers);
+            }else{
+                $this->response(array('status' => 'fail', 502));
+            }
         } else {
             $this->response(array('status' => 'fail', 502));
         }

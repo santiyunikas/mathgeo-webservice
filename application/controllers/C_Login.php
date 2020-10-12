@@ -46,7 +46,7 @@ class C_Login extends REST_Controller {
         $email = $this->put('email');
         $data = array(
             'password'=> $this->put('password'),
-                );
+        );
         $this->db->where('email', $email);
         $update = $this->db->update('member', $data);
         if ($update) {
