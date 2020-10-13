@@ -43,44 +43,34 @@ class C_Register extends REST_Controller {
 
             $insert_verify = $this->db->insert('is_verified_member', $verify_data);
             if($insert_verify){
-                $to = $data['email'];
-                $subject = 'Santi dari MathGeo';
-                $message = '
-                Dear '.$data['nama_lengkap'].'
-
-                Terimakasih telah melakukan registrasi!
-                Akun kamu sudah dibuat, kamu bisa login menggunakan email dan password dibawah ini
-
-                -----------------------------------
-                Email: '.$data['email'].'
-                Password: '.$data['password'].'
-                -----------------------------------
-
-                Klik link dibawah ini untuk mengaktifkan akun kamu:
-                https://mathgeo.ub-learningtechnology.com/verify.php?email='.$data['email'].'
-
-                Selamat belajar dengan tekun
-
-
-
-                Salam,
-                
-                Santi
-
-                MathGeo Developer
-
-                ps: Abaikan email ini jika kamu merasa tidak melakukan registrasi.
-                Balas email ini untuk informasi lebih lanjut.
-
-                ';
-                $headers = 'From:sysufiana@gmail.com'."\r\n";
-                mail($to, $subject, $message, $headers);
-            }else{
-                $this->response(array('status' => 'fail', 502));
+                sendEmailVerification($data);
             }
         } else {
             $this->response(array('status' => 'fail', 502));
         }
+    }
+
+    function sendEmailVerification($data){
+        require_once('function.php');
+        $to = $data['email'];
+        $subject = 'Santi dari MathGeo';
+        $message = '
+                Dear '.$data['nama_lengkap'].'\n\n
+                Terimakasih telah melakukan registrasi!\n
+                Akun kamu sudah dibuat, kamu bisa login menggunakan email dan password dibawah ini\n\n
+                -----------------------------------\n
+                Email: '.$data['email'].'\n
+                Password: '.$data['password'].'\n
+                -----------------------------------\n\n
+                Klik link dibawah ini untuk mengaktifkan akun kamu:\n
+                https://mathgeo.ub-learningtechnology.com/verify.php?email='.$data['email'].'\n\n
+                Selamat belajar dengan tekun\n\n\n
+                Salam,\n\n
+                Santi\n\n
+                MathGeo Developer\n\n
+                ps: Abaikan email ini jika kamu merasa tidak melakukan registrasi.\n
+                Balas email ini untuk informasi lebih lanjut.';
+        smtp_mail($to, $subject, $message, '', '', 0, 0, true);
     }
 
     //Memperbaharui data yang telah ada
