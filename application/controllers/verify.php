@@ -16,10 +16,10 @@ class verify extends REST_Controller {
     function index_get() {
         $email = $this->get('email');
         if ($email == '') {
-            $member = $this->db->get('is_verified_member')->result();
+            $member = $this->db->get('member')->result();
         } else {
             $this->db->where('email', $email);
-            $member = $this->db->get('is_verified_member')->result();
+            $member = $this->db->get('member')->result();
         }
         $this->response($member, 200);
     }
