@@ -55,21 +55,41 @@ class C_Register extends REST_Controller {
         $to = $data['email'];
         $subject = 'Santi dari MathGeo';
         $message = '
-                Dear '.$data['nama_lengkap'].'\n\n
-                Terimakasih telah melakukan registrasi!\n
-                Akun kamu sudah dibuat, kamu bisa login menggunakan email dan password dibawah ini\n\n
-                -----------------------------------\n
-                Email: '.$data['email'].'\n
-                Password: '.$data['password'].'\n
-                -----------------------------------\n\n
-                Klik link dibawah ini untuk mengaktifkan akun kamu:\n
-                https://mathgeo.ub-learningtechnology.com/verify.php?email='.$data['email'].'\n\n
-                Selamat belajar dengan tekun\n\n\n
-                Salam,\n\n
-                Santi\n\n
-                MathGeo Developer\n\n
-                ps: Abaikan email ini jika kamu merasa tidak melakukan registrasi.\n
-                Balas email ini untuk informasi lebih lanjut.';
+                <p><strong>Dear '.$data['nama_lengkap'].'</strong></p>
+                </br>
+                <p>Terimakasih telah melakukan registrasi!</p>
+                </br>
+                <p>Akun kamu sudah dibuat, kamu bisa login menggunakan email dan password dibawah ini</p>
+                </br>
+                </br>
+                -----------------------------------
+                </br>
+                <p>Email: '.$data['email'].'</p>
+                </br>
+                <p>Password: '.$data['password'].'</p>
+                </br>
+                -----------------------------------
+                </br>
+                </br>
+                <p>Klik link dibawah ini untuk mengaktifkan akun kamu:</p>
+                </br>
+                https://mathgeo.ub-learningtechnology.com/verify.php?email='.$data['email'].'
+                </br>
+                </br>
+                Selamat belajar dengan tekun
+                </br>
+                </br>
+                </br>
+                Salam,
+                </br>
+                </br>
+                Santi
+                </br>
+                </br>
+                MathGeo Developer
+                </br>
+                </br>
+                ps: Abaikan email ini jika kamu merasa tidak melakukan registrasi.';
         $this->smtp_mail($to, $subject, $message, '', '', 0, 0, true);
     }
 
