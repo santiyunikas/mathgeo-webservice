@@ -15,11 +15,11 @@ class C_Register extends REST_Controller {
 
     //Menampilkan menggunakan id
     function index_get() {
-        $id = $this->get('id_pengguna');
-        if ($id == '') {
+        $email = $this->get('email');
+        if ($email == '') {
             $pengguna = $this->db->get('pengguna')->result();
         } else {
-            $this->db->where('id_pengguna', $id);
+            $this->db->where('email', $email);
             $pengguna = $this->db->get('pengguna')->result();
         }
         $this->response($pengguna, 200);
