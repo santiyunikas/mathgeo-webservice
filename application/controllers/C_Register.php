@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 require APPPATH . '/libraries/REST_Controller.php';
 use Restserver\Libraries\REST_Controller;
+use Restserver\Libraries\Email\function;
 
 class C_Register extends REST_Controller {
 
@@ -51,7 +52,6 @@ class C_Register extends REST_Controller {
     }
 
     function sendEmailVerification($data){
-        require_once('function.php');
         $to = $data['email'];
         $subject = 'Santi dari MathGeo';
         $message = '
