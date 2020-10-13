@@ -36,7 +36,8 @@ class C_Register extends REST_Controller {
         );
         $insert = $this->db->insert('member', $data);
         if ($insert) {
-            $this->response($data, 200);
+            return $this->response($data, 200);
+            
             $verify_data = array(
                 'email'=> $this->post('email'),
                 'active'=> 0
