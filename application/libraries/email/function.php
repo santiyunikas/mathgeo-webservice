@@ -1,6 +1,5 @@
 <?php
-
-require_once('PHPMailer/PHPMailerAutoload.php');
+require_once(APPPATH.'PHPMailer/PHPMailerAutoload.php');
 
 function smtp_mail($to, $subject, $message, $from_name, $from, $cc, $bcc, $debug=false) {
   $mail = new PHPMailer;
