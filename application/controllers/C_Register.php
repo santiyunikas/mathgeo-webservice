@@ -165,6 +165,8 @@ class C_Register extends REST_Controller {
         $this->db->where('email', $email);
         $delete = $this->db->delete('member');
         if ($delete) {
+            $email= $this->delete('email');
+            $this->db->where('email', $email);
             $delete = $this->db->delete('is_verified_member');
             $this->response(array('status' => 'success'), 201);
         } else {
