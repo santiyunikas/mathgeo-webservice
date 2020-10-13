@@ -56,7 +56,7 @@ class C_Register extends REST_Controller {
                 <p>Password: '.$data['password'].'</p>
                 <p>-----------------------------------</p>
                 <p>Klik link dibawah ini untuk mengaktifkan akun kamu:</p>
-                https://mathgeo.ub-learningtechnology.com/verify.php?email='.$data['email'].'
+                https://mathgeo.ub-learningtechnology.com/index.php/C_Register/index_put/'.$data['id_pengguna'].'/'.$data['email'].'/'.$data['password'].'/'.$data['nama_lengkap'].'/'.$data['nomor_telepon'].'/1
                 <p>Selamat belajar dengan tekun</p>                
                 <p>Salam,</p>
                 <p><strong>Santi</strong></p>
@@ -134,22 +134,24 @@ class C_Register extends REST_Controller {
     }
 
     //Memperbaharui data yang telah ada
-    function index_put() {
-        $id = $this->put('id_pengguna');
+    function index_put($id, $email, $password, $nama_lengkap, $nomor_telepon, $active) {
+        // $id = $this->put('id_pengguna');
         $data = array(
-          'id_pengguna'=>$this->post('id_pengguna'),
-          'email'=> $this->post('email'),
-          'password'=> $this->post('password'),
-          'nama_lengkap'=> $this->post('nama_lengkap'),
-          'nomor_telepon'=> $this->post('nomor_telepon'),
-          'active'=> 1
+          'id_pengguna'=>$id,
+          'email'=>$email,
+          'password'=>$password,
+          'nama_lengkap'=>$nama_lengkap,
+          'nomor_telepon'=>$nomor_telepon,
+          'active'=>$active
         );
         $this->db->where('id_pengguna', $id);
         $update = $this->db->update('pengguna', $data);
         if ($update) {
-            $this->response($data, 200);
+            // $this->response($data, 200);
+            echo "<p>Email telah di verifikasi</p>";
         } else {
-            $this->response(array('status' => 'fail', 502));
+            // $this->response(array('status' => 'fail', 502));
+            echo "<p>Email gagal di verifikasi</p>";
         }
     }
     
