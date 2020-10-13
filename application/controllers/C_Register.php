@@ -36,7 +36,6 @@ class C_Register extends REST_Controller {
         );
         $insert = $this->db->insert('member', $data);
         if ($insert) {
-            $this->response($data, 200);
             $verify_data = array(
                 'email'=> $this->post('email'),
                 'active'=> 0
@@ -65,31 +64,26 @@ class C_Register extends REST_Controller {
                 -----------------------------------
                 </br>
                 <p>Email: '.$data['email'].'</p>
-                </br>
                 <p>Password: '.$data['password'].'</p>
                 </br>
                 -----------------------------------
                 </br>
                 </br>
                 <p>Klik link dibawah ini untuk mengaktifkan akun kamu:</p>
-                </br>
                 https://mathgeo.ub-learningtechnology.com/verify.php?email='.$data['email'].'
                 </br>
                 </br>
-                Selamat belajar dengan tekun
+                <p>Selamat belajar dengan tekun</p>
                 </br>
                 </br>
                 </br>
-                Salam,
+                <p>Salam,</p>
                 </br>
+                <p><strong>Santi</strong></p>
                 </br>
-                Santi
+                <p>MathGeo Developer</p>
                 </br>
-                </br>
-                MathGeo Developer
-                </br>
-                </br>
-                ps: Abaikan email ini jika kamu merasa tidak melakukan registrasi.';
+                <p>ps: Abaikan email ini jika kamu merasa tidak melakukan registrasi.</p>';
         $this->smtp_mail($to, $subject, $message, '', '', 0, 0, true);
     }
 
@@ -159,9 +153,9 @@ class C_Register extends REST_Controller {
         $mail->Body 	  = $message;
         $mail->AltBody	= $message;
         if(!$mail->send())
-          return 1;
+          return $this->response($data, 200);
         else
-          return 0;
+          return $this->response(array('status' => 'fail', 502));
       }
 
     //Memperbaharui data yang telah ada
