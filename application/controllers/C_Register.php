@@ -15,39 +15,32 @@ class C_Register extends REST_Controller {
 
     //Menampilkan menggunakan id
     function index_get() {
-        $id = $this->get('id_member');
+        $id = $this->get('id_pengguna');
         if ($id == '') {
-            $member = $this->db->get('member')->result();
+            $pengguna = $this->db->get('pengguna')->result();
         } else {
-            $this->db->where('id_member', $id);
-            $member = $this->db->get('member')->result();
+            $this->db->where('id_pengguna', $id);
+            $pengguna = $this->db->get('pengguna')->result();
         }
-        $this->response($member, 200);
+        $this->response($pengguna, 200);
     }
 
     //Mengirim atau menambah data baru
     function index_post() {
         $data = array(
-            'id_member'=>$this->post('id_member'),
+            'id_pengguna'=>$this->post('id_pengguna'),
             'email'=> $this->post('email'),
             'password'=> $this->post('password'),
             'nama_lengkap'=> $this->post('nama_lengkap'),
-            'nomor_telepon'=> $this->post('nomor_telepon')
+            'nomor_telepon'=> $this->post('nomor_telepon'),
+            'active'=> 0
         );
-        $insert = $this->db->insert('member', $data);
+        $insert = $this->db->insert('pengguna', $data);
         if ($insert) {
-            $verify_data = array(
-                'email'=> $this->post('email'),
-                'active'=> 0
-            );
-
-            $insert_verify = $this->db->insert('is_verified_member', $verify_data);
-            if($insert_verify){
-                $this->sendEmailVerification($data);
-                $this->response($data, 200);
-            }
+          $this->sendEmailVerification($data);
+          $this->response($data, 200);
         } else {
-            $this->response(array('status' => 'fail', 502));
+          $this->response(array('status' => 'fail', 502));
         }
     }
 
@@ -142,16 +135,17 @@ class C_Register extends REST_Controller {
 
     //Memperbaharui data yang telah ada
     function index_put() {
-        $id = $this->put('id_member');
+        $id = $this->put('id_pengguna');
         $data = array(
-            'id_member'=>$this->put('id_member'),
-            'email'=> $this->put('email'),
-            'password'=> $this->put('password'),
-            'nama_lengkap'=> $this->put('nama_lengkap'),
-            'nomor_telepon'=> $this->put('nomor_telepon')
-                );
-        $this->db->where('id_member', $id);
-        $update = $this->db->update('member', $data);
+          'id_pengguna'=>$this->post('id_pengguna'),
+          'email'=> $this->post('email'),
+          'password'=> $this->post('password'),
+          'nama_lengkap'=> $this->post('nama_lengkap'),
+          'nomor_telepon'=> $this->post('nomor_telepon'),
+          'active'=> 1
+        );
+        $this->db->where('id_pengguna', $id);
+        $update = $this->db->update('pengguna', $data);
         if ($update) {
             $this->response($data, 200);
         } else {
@@ -163,11 +157,8 @@ class C_Register extends REST_Controller {
     function index_delete() {
         $email= $this->delete('email');
         $this->db->where('email', $email);
-        $delete = $this->db->delete('member');
+        $delete = $this->db->delete('pengguna');
         if ($delete) {
-            $email= $this->delete('email');
-            $this->db->where('email', $email);
-            $delete = $this->db->delete('is_verified_member');
             $this->response(array('status' => 'success'), 201);
         } else {
             $this->response(array('status' => 'fail', 502));
