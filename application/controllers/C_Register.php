@@ -36,6 +36,7 @@ class C_Register extends REST_Controller {
         );
         $insert = $this->db->insert('member', $data);
         if ($insert) {
+            $this->response($data, 200);
             $verify_data = array(
                 'email'=> $this->post('email'),
                 'active'=> 0
@@ -55,34 +56,18 @@ class C_Register extends REST_Controller {
         $subject = 'Santi dari MathGeo';
         $message = '
                 <p><strong>Dear '.$data['nama_lengkap'].'</strong></p>
-                </br>
                 <p>Terimakasih telah melakukan registrasi!</p>
-                </br>
                 <p>Akun kamu sudah dibuat, kamu bisa login menggunakan email dan password dibawah ini</p>
-                </br>
-                </br>
-                -----------------------------------
-                </br>
+                <p>-----------------------------------</p>
                 <p>Email: '.$data['email'].'</p>
                 <p>Password: '.$data['password'].'</p>
-                </br>
-                -----------------------------------
-                </br>
-                </br>
+                <p>-----------------------------------</p>
                 <p>Klik link dibawah ini untuk mengaktifkan akun kamu:</p>
                 https://mathgeo.ub-learningtechnology.com/verify.php?email='.$data['email'].'
-                </br>
-                </br>
-                <p>Selamat belajar dengan tekun</p>
-                </br>
-                </br>
-                </br>
+                <p>Selamat belajar dengan tekun</p>                
                 <p>Salam,</p>
-                </br>
                 <p><strong>Santi</strong></p>
-                </br>
                 <p>MathGeo Developer</p>
-                </br>
                 <p>ps: Abaikan email ini jika kamu merasa tidak melakukan registrasi.</p>';
         $this->smtp_mail($to, $subject, $message, '', '', 0, 0, true);
     }
@@ -150,12 +135,9 @@ class C_Register extends REST_Controller {
         // Set isi dari email
         $mail->isHTML(true);
         $mail->Subject 	= $subject;
-        $mail->Body 	  = $message;
+        $mail->Body 	= $message;
         $mail->AltBody	= $message;
-        if(!$mail->send())
-          return $this->response($data, 200);
-        else
-          return $this->response(array('status' => 'fail', 502));
+        $mail->send();
       }
 
     //Memperbaharui data yang telah ada
