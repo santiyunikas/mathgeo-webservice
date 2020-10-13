@@ -12,39 +12,39 @@ class verify extends REST_Controller {
         $this->load->database();
     }
 
-    //Menampilkan data menggunakan email
-    // function index_get() {
-    //     $email = $this->get('email');
-    //     if ($email == '') {
-    //         $member = $this->db->get('is_verified_member')->result();
-    //     } else {
-    //         $this->db->where('email', $email);
-    //         $member = $this->db->get('is_verified_member')->result();
-    //     }
-    //     $this->response($member, 200);
-    // }
-
+    // Menampilkan data menggunakan email
     function index_get() {
         $email = $this->get('email');
-
-        if (!empty($email)) {
-
-            // Verify data                          
-            $data = array(
-                'email'=> $email,
-                'active'=> 1
-            );
+        if ($email == '') {
+            $member = $this->db->get('is_verified_member')->result();
+        } else {
             $this->db->where('email', $email);
-            $update = $this->db->update('is_verified_member', $data);
-            if ($update) {
-                echo '<div class="statusmsg">Your account has been activated, you can now login</div>';
-                // $this->response($data, 200);
-            } else {
-                echo '<div class="statusmsg">Invalid approach, please use the link that has been send to your email.</div>';
-                // $this->response(array('status' => 'fail', 502));
-            }
-        }   
+            $member = $this->db->get('is_verified_member')->result();
+        }
+        $this->response($member, 200);
     }
+
+    // function index_get() {
+    //     $email = $this->get('email');
+
+    //     if (!empty($email)) {
+
+    //         // Verify data                          
+    //         $data = array(
+    //             'email'=> $email,
+    //             'active'=> 1
+    //         );
+    //         $this->db->where('email', $email);
+    //         $update = $this->db->update('is_verified_member', $data);
+    //         if ($update) {
+    //             echo '<div class="statusmsg">Your account has been activated, you can now login</div>';
+    //             // $this->response($data, 200);
+    //         } else {
+    //             echo '<div class="statusmsg">Invalid approach, please use the link that has been send to your email.</div>';
+    //             // $this->response(array('status' => 'fail', 502));
+    //         }
+    //     }   
+    // }
 
     //Mengirim atau menambah data baru
     function index_post() {
