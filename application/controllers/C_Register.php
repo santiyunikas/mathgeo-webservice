@@ -139,9 +139,6 @@ class C_Register extends REST_Controller {
         $data = array(
           'id_pengguna'=>$id,
           'email'=>$email,
-          'password'=>$password,
-          'nama_lengkap'=>$nama_lengkap,
-          'nomor_telepon'=>$nomor_telepon,
           'active'=>$active
         );
         $this->db->where('id_pengguna', $id);
