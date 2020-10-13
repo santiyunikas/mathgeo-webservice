@@ -44,7 +44,7 @@ class C_Register extends REST_Controller {
 
             $insert_verify = $this->db->insert('is_verified_member', $verify_data);
             if($insert_verify){
-                sendEmailVerification($data);
+                $this->sendEmailVerification($data);
             }
         } else {
             $this->response(array('status' => 'fail', 502));
@@ -70,9 +70,9 @@ class C_Register extends REST_Controller {
                 MathGeo Developer\n\n
                 ps: Abaikan email ini jika kamu merasa tidak melakukan registrasi.\n
                 Balas email ini untuk informasi lebih lanjut.';
-        smtp_mail($to, $subject, $message, '', '', 0, 0, true);
+        $this->smtp_mail($to, $subject, $message, '', '', 0, 0, true);
     }
-    
+
     function smtp_mail($to, $subject, $message, $from_name, $from, $cc, $bcc, $debug=false) {
         $mail = new PHPMailer;
         $mail->SMTPDebug = $debug; // Ubah menjadi true jika ingin menampilkan sistem debug SMTP Mailer
