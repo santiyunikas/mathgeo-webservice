@@ -56,7 +56,7 @@ class C_Register extends REST_Controller {
                 <p>Password: '.$data['password'].'</p>
                 <p>-----------------------------------</p>
                 <p>Klik link dibawah ini untuk mengaktifkan akun kamu:</p>
-                https://mathgeo.ub-learningtechnology.com/index.php/C_Register/index_put/'.$data['id_pengguna'].'/'.$data['email'].'/1
+                https://mathgeo.ub-learningtechnology.com/index.php/C_Register/index_put/'.$data['email'].'/1
                 <p>Selamat belajar dengan tekun</p>                
                 <p>Salam,</p>
                 <p><strong>Santi</strong></p>
@@ -134,14 +134,13 @@ class C_Register extends REST_Controller {
     }
 
     //Memperbaharui data yang telah ada
-    function index_put($id, $email, $active) {
+    function index_put($email, $active) {
         // $id = $this->put('id_pengguna');
         $data = array(
-          'id_pengguna'=>$id,
           'email'=>$email,
           'active'=>$active
         );
-        $this->db->where('id_pengguna', $id);
+        $this->db->where('email', $email);
         $update = $this->db->update('pengguna', $data);
         if ($update) {
             // $this->response($data, 200);
