@@ -85,7 +85,7 @@ class C_Register extends REST_Controller {
       
         /* -------------------------- Konfigurasi Dasar SMTP ---------------------------------- */
         
-        $mail->SMTPAuth 	= true;                        				
+        $mail->SMTPAuth 	= false;                        				
         $mail->Host 		  = 'mail.ub-learningtechnology.com';  // Masukkan Server SMTP
         $mail->Port 		  = 587;                                      // Masukkan Port SMTP
         $mail->SMTPSecure = 'tls';                                    // Masukkan Pilihan Enkripsi ( `tls` atau `ssl` )
