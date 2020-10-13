@@ -34,7 +34,6 @@ class C_Register extends REST_Controller {
             'nama_lengkap'=> $this->post('nama_lengkap'),
             'nomor_telepon'=> $this->post('nomor_telepon')
         );
-        $json = $data;
         $insert = $this->db->insert('member', $data);
         if ($insert) {
             $verify_data = array(
@@ -45,8 +44,8 @@ class C_Register extends REST_Controller {
             $insert_verify = $this->db->insert('is_verified_member', $verify_data);
             if($insert_verify){
                 $this->sendEmailVerification($data);
+                $this->response($data, 200);
             }
-            return $this->response($json, 200);
         } else {
             $this->response(array('status' => 'fail', 502));
         }
@@ -139,7 +138,7 @@ class C_Register extends REST_Controller {
         $mail->Body 	= $message;
         $mail->AltBody	= $message;
         $mail->send();
-      }
+    }
 
     //Memperbaharui data yang telah ada
     function index_put() {
@@ -162,10 +161,11 @@ class C_Register extends REST_Controller {
     
     //delete data yang sudah ada
     function index_delete() {
-        $id = $this->delete('id_member');
-        $this->db->where('id_member', $id);
+        $email= $this->delete('email');
+        $this->db->where('email', $email);
         $delete = $this->db->delete('member');
         if ($delete) {
+            $delete = $this->db->delete('is_verified_member');
             $this->response(array('status' => 'success'), 201);
         } else {
             $this->response(array('status' => 'fail', 502));
