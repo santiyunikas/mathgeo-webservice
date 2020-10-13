@@ -16,13 +16,28 @@ class C_Register extends REST_Controller {
     //Menampilkan menggunakan id
     function index_get() {
         $email = $this->get('email');
-        if ($email == '') {
-            $pengguna = $this->db->get('pengguna')->result();
+        $data = array(
+          'email'=>$email,
+          'active'=>1
+        );
+
+        // if ($email == '') {
+        //     $pengguna = $this->db->get('pengguna')->result();
+        // } else {
+        //     $this->db->where('email', $email);
+        //     $pengguna = $this->db->get('pengguna')->result();
+        // }
+        // $this->response($pengguna, 200);
+
+        $this->db->where('email', $email);
+        $update = $this->db->update('pengguna', $data);
+        if ($update) {
+            // $this->response($data, 200);
+            echo "<p>Email telah di verifikasi</p>";
         } else {
-            $this->db->where('email', $email);
-            $pengguna = $this->db->get('pengguna')->result();
+            // $this->response(array('status' => 'fail', 502));
+            echo "<p>Email gagal di verifikasi</p>";
         }
-        $this->response($pengguna, 200);
     }
 
     //Mengirim atau menambah data baru
