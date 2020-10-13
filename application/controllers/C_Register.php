@@ -13,21 +13,13 @@ class C_Register extends REST_Controller {
         $this->load->database();
     }
 
-    //Menampilkan menggunakan id
+    //get data dan mengubahnya
     function index_get() {
         $email = $this->get('email');
         $data = array(
           'email'=>$email,
           'active'=>1
         );
-
-        // if ($email == '') {
-        //     $pengguna = $this->db->get('pengguna')->result();
-        // } else {
-        //     $this->db->where('email', $email);
-        //     $pengguna = $this->db->get('pengguna')->result();
-        // }
-        // $this->response($pengguna, 200);
 
         $this->db->where('email', $email);
         $update = $this->db->update('pengguna', $data);
@@ -71,7 +63,7 @@ class C_Register extends REST_Controller {
                 <p>Password: '.$data['password'].'</p>
                 <p>-----------------------------------</p>
                 <p>Klik link dibawah ini untuk mengaktifkan akun kamu:</p>
-                https://mathgeo.ub-learningtechnology.com/index.php/C_Register/index_put/'.$data['email'].'/1
+                https://mathgeo.ub-learningtechnology.com/index.php/C_Register?email='.$data['email'].'
                 <p>Selamat belajar dengan tekun</p>                
                 <p>Salam,</p>
                 <p><strong>Santi</strong></p>
@@ -148,34 +140,5 @@ class C_Register extends REST_Controller {
         $mail->send();
     }
 
-    //Memperbaharui data yang telah ada
-    function index_put($email, $active) {
-        // $id = $this->put('id_pengguna');
-        $data = array(
-          'email'=>$email,
-          'active'=>$active
-        );
-        $this->db->where('email', $email);
-        $update = $this->db->update('pengguna', $data);
-        if ($update) {
-            // $this->response($data, 200);
-            echo "<p>Email telah di verifikasi</p>";
-        } else {
-            // $this->response(array('status' => 'fail', 502));
-            echo "<p>Email gagal di verifikasi</p>";
-        }
-    }
-    
-    //delete data yang sudah ada
-    function index_delete() {
-        $email= $this->delete('email');
-        $this->db->where('email', $email);
-        $delete = $this->db->delete('pengguna');
-        if ($delete) {
-            $this->response(array('status' => 'success'), 201);
-        } else {
-            $this->response(array('status' => 'fail', 502));
-        }
-    }
 }
 ?>
