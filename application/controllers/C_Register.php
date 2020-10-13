@@ -70,7 +70,7 @@ class C_Register extends REST_Controller {
                 <p><strong>Santi</strong></p>
                 <p>MathGeo Developer</p>
                 <p>ps: Abaikan email ini jika kamu merasa tidak melakukan registrasi.</p>';
-        $this->smtp_mail($to, $subject, $message, '', '', 0, 0, true);
+        $this->smtp_mail($to, $subject, $message, '', '', 0, 0, false);
     }
 
     function smtp_mail($to, $subject, $message, $from_name, $from, $cc, $bcc, $debug=false) {
