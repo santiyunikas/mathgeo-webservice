@@ -22,7 +22,7 @@ class C_Register extends REST_Controller {
         );
 
         $this->db->where('email', $email);
-        $update = $this->db->update('pengguna', $data);
+        $update = $this->db->update('member', $data);
         if ($update) {
             // $this->response($data, 200);
             echo "<p>Email telah di verifikasi</p>";
@@ -35,14 +35,14 @@ class C_Register extends REST_Controller {
     //Mengirim atau menambah data baru
     function index_post() {
         $data = array(
-            'id_pengguna'=>$this->post('id_pengguna'),
+            'id_member'=>$this->post('id_member'),
             'email'=> $this->post('email'),
             'password'=> $this->post('password'),
             'nama_lengkap'=> $this->post('nama_lengkap'),
             'nomor_telepon'=> $this->post('nomor_telepon'),
             'active'=> 0
         );
-        $insert = $this->db->insert('pengguna', $data);
+        $insert = $this->db->insert('member', $data);
         if ($insert) {
           $this->sendEmailVerification($data);
           $this->response($data, 200);
