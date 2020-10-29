@@ -34,7 +34,7 @@ class C_ResetPassword extends REST_Controller {
         $this->db->where('email', $email);
         $update = $this->db->update('member', $data);
         if ($update) {
-            $this->sendOtp($otp, $member);
+            $this->sendOtp($otp, $data);
             $this->db->where('email', $email);
             $member = $this->db->get('member')->result();
             $this->response($member, 200);
