@@ -27,6 +27,7 @@ class C_ResetPassword extends REST_Controller {
         } else {
             $this->db->where('email', $email);
             $member = $this->db->get('member')->result_array();
+            $this->response($member, 200);
             var_dump($member);
             if($member['email']==$email){
                 // $this->sendOtp($otp, $member);
