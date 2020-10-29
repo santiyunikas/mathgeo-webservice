@@ -29,7 +29,7 @@ class C_ResetPassword extends REST_Controller {
             $otp = '1234';
         }
 
-        if($member.count > 0){
+        if(count($member)>0){
             $this->sendOtp($otp, $member);
             $this->response($member, 200);
         }else{
