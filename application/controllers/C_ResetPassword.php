@@ -16,13 +16,9 @@ class C_ResetPassword extends REST_Controller {
 
     //digunakan untuk membuat akun baru
     function index_get() {
-        $otp = $this->get('otp');
-        if ($otp == '') {
-            $otp = '1234';
-        }else{
-            $fourdigitrandom = rand(1000,9999);
-            $otp = $fourdigitrandom;
-        }
+        
+        $fourdigitrandom = rand(1000,9999);
+        $otp = $fourdigitrandom;
 
         $email = $this->get('email');
 
