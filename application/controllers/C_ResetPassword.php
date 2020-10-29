@@ -16,25 +16,22 @@ class C_ResetPassword extends REST_Controller {
 
     //digunakan untuk membuat akun baru
     function index_get() {
-        $email = $this->get('email');
-        if ($email == '') {
-            $member = $this->db->get('member')->result();
-        } else {
-            $this->db->where('email', $email);
-            $member = $this->db->get('member')->result();
-        }
-
         $otp = $this->get('otp');
         if ($otp == '') {
             $otp = '1234';
         }
 
-        if($member['email']==$email){
-            $this->sendOtp($otp, $member);
-            $this->response($member, 200);
-        }else{
+        $email = $this->get('email');
+        if ($email == '') {
             $this->response(array('status' => 'fail', 502));
-        }    
+        } else {
+            $this->db->where('email', $email);
+            $member = $this->db->get('member')->result();
+            if($member['email']==$email){
+                $this->sendOtp($otp, $member);
+                $this->response($member, 200);
+            }
+        }  
     }
 
     //digunakan untuk membuat format email dan mengirimnya
