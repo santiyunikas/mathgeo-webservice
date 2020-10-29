@@ -24,7 +24,8 @@ class C_ResetPassword extends REST_Controller {
 
         $data = array(
             'email'=> $email,
-            'otp'=>$otp
+            'otp'=>$otp,
+            'active'=>1
         );
 
         $this->db->where('email', $email);
