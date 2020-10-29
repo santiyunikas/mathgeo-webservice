@@ -26,11 +26,11 @@ class C_ResetPassword extends REST_Controller {
             $this->response(array('status' => 'fail', 502));
         } else {
             $this->db->where('email', $email);
-            $member = $this->db->get('member')->result();
-            // if($member->email==$email){
-            //     $this->sendOtp($otp, $member);
-                $this->response($member->email, 200);
-            // }
+            $member = $this->db->get('member')->result_array();
+            if($member[0]['email']==$email){
+                // $this->sendOtp($otp, $member);
+                $this->response($member, 200);
+            }
         }  
     }
 
