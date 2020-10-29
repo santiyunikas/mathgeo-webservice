@@ -19,31 +19,39 @@ class C_ResetPassword extends REST_Controller {
         $otp = $this->get('otp');
         if ($otp == '') {
             $otp = '1234';
+        }else{
+            $fourdigitrandom = rand(1000,9999);
+            $otp = $fourdigitrandom
         }
 
         $email = $this->get('email');
-        if ($email == '') {
-            $this->response(array('status' => 'fail', 502));
-        } else {
+
+        $data = array(
+            'email'=> $email,
+            'otp'=>$otp
+        );
+
+        $this->db->where('email', $email);
+        $update = $this->db->update('member', $data);
+        if ($update) {
+            $this->sendOtp($otp, $member);
             $this->db->where('email', $email);
-            $member = $this->db->get('member')->result_array();
+            $member = $this->db->get('member')->result();
             $this->response($member, 200);
-            var_dump($member);
-            // if($member['email']==$email){
-            //     // $this->sendOtp($otp, $member);
-            //     $this->response($member, 200);
-            // }
-        }  
+        } else {
+            $this->response(array('status' => 'fail', 502));
+        }
+
+         
     }
 
     //digunakan untuk membuat format email dan mengirimnya
-    function sendOtp($otp, $member){
-        $to = $email;
-        $subject = $otp.' -- Kode OTP Kamu';
+    function sendOtp($otp, $data){
+        $to = $data['email'];
+        $subject = $data['otp'].' -- Kode OTP Kamu';
         $message = '
-                <p><strong>Dear '.$member['nama_lengkap'].'</strong></p>
                 <p>Kamu terdeteksi melakukan reset password akun MathGeo</p>
-                <p>'.$otp.' -- Kode OTP Kamu</p>
+                <p>'.$data['otp'].' -- Kode OTP Kamu</p>
                 <br>
                 <br>
                 <p>Salam,</p>
