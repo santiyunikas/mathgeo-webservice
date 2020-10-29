@@ -29,10 +29,10 @@ class C_ResetPassword extends REST_Controller {
             $member = $this->db->get('member')->result_array();
             $this->response($member, 200);
             var_dump($member);
-            if($member['email']==$email){
-                // $this->sendOtp($otp, $member);
-                $this->response($member, 200);
-            }
+            // if($member['email']==$email){
+            //     // $this->sendOtp($otp, $member);
+            //     $this->response($member, 200);
+            // }
         }  
     }
 
