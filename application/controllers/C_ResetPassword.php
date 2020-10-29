@@ -21,7 +21,7 @@ class C_ResetPassword extends REST_Controller {
             $otp = '1234';
         }else{
             $fourdigitrandom = rand(1000,9999);
-            $otp = $fourdigitrandom
+            $otp = $fourdigitrandom;
         }
 
         $email = $this->get('email');
