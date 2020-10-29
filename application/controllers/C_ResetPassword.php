@@ -26,7 +26,7 @@ class C_Register extends REST_Controller {
 
         $otp = $this->get('otp');
         if ($otp == '') {
-            $otp = '1234' 
+            $otp = '1234';
         }
 
         if($member.count > 0){
