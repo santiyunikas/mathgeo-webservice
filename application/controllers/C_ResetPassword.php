@@ -6,7 +6,7 @@ require APPPATH . '/libraries/REST_Controller.php';
 require APPPATH . '/libraries/email/PHPMailer/PHPMailerAutoload.php';
 use Restserver\Libraries\REST_Controller;
 
-class C_Register extends REST_Controller {
+class C_ResetPassword extends REST_Controller {
 
     function __construct($config = 'rest') {
         parent::__construct($config);
