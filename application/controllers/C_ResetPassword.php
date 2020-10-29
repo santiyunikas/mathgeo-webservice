@@ -13,63 +13,44 @@ class C_Register extends REST_Controller {
         $this->load->database();
     }
 
-    //digunakan untuk konfirmasi email pengguna
-    function index_get() {
-        $email = $this->get('email');
-        $data = array(
-          'email'=>$email,
-          'active'=>1
-        );
-
-        $this->db->where('email', $email);
-        $update = $this->db->update('member', $data);
-        if ($update) {
-            // $this->response($data, 200);
-            echo "<h1>Email telah di verifikasi</h1>";
-        } else {
-            // $this->response(array('status' => 'fail', 502));
-            echo "<h1>Email gagal di verifikasi</h1>";
-        }
-    }
 
     //digunakan untuk membuat akun baru
-    function index_post() {
-        $data = array(
-            'id_member'=>$this->post('id_member'),
-            'email'=> $this->post('email'),
-            'password'=> $this->post('password'),
-            'nama_lengkap'=> $this->post('nama_lengkap'),
-            'nomor_telepon'=> $this->post('nomor_telepon'),
-            'active'=> 0
-        );
-        $insert = $this->db->insert('member', $data);
-        if ($insert) {
-          $this->sendEmailVerification($data);
-          $this->response($data, 200);
+    function index_get() {
+        $email = $this->get('email');
+        if ($email == '') {
+            $member = $this->db->get('member')->result();
         } else {
-          $this->response(array('status' => 'fail', 502));
+            $this->db->where('email', $email);
+            $member = $this->db->get('member')->result();
         }
+
+        $otp = $this->get('otp');
+        if ($otp == '') {
+            $otp = '1234' 
+        }
+
+        if($member.count > 0){
+            $this->sendOtp($otp, $member);
+            $this->response($member, 200);
+        }else{
+            $this->response(array('status' => 'fail', 502));
+        }    
     }
 
     //digunakan untuk membuat format email dan mengirimnya
-    function sendEmailVerification($data){
-        $to = $data['email'];
-        $subject = 'Santi dari MathGeo';
+    function sendOtp($otp, $member){
+        $to = $email;
+        $subject = $otp.' -- Kode OTP Kamu';
         $message = '
-                <p><strong>Dear '.$data['nama_lengkap'].'</strong></p>
-                <p>Terimakasih telah melakukan registrasi!</p>
-                <p>Akun kamu sudah dibuat, kamu bisa login menggunakan email dan password dibawah ini</p>
-                <p>-----------------------------------</p>
-                <p>Email: '.$data['email'].'</p>
-                <p>Password: '.$data['password'].'</p>
-                <p>-----------------------------------</p>
-                <p>Klik link dibawah ini untuk mengaktifkan akun kamu:</p>
-                https://mathgeo.ub-learningtechnology.com/index.php/C_Register?email='.$data['email'].'
-                <p>Selamat belajar dengan tekun</p>                
+                <p><strong>Dear '.$member['nama_lengkap'].'</strong></p>
+                <p>Kamu terdeteksi melakukan reset password akun MathGeo</p>
+                <p>'.$otp.' -- Kode OTP Kamu</p>
+                <br>
+                <br>
                 <p>Salam,</p>
                 <p><strong>Santi</strong></p>
                 <p>MathGeo Developer</p>
-                <p>ps: Abaikan email ini jika kamu merasa tidak melakukan registrasi.</p>';
+                <p>ps: Abaikan email ini jika kamu merasa tidak melakukan reset password.</p>';
         $this->smtp_mail($to, $subject, $message, '', '', 0, 0, false);
     }
 
