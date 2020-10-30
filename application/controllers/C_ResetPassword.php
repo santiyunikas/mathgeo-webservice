@@ -17,6 +17,7 @@ class C_ResetPassword extends REST_Controller {
     function index_put() {
         $email = $this->put('email');
         $data = array(
+            'email'=>$this->put('email'),
             'password'=> $this->put('password'),
         );
         $this->db->where('email', $email);
