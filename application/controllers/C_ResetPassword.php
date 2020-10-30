@@ -13,6 +13,20 @@ class C_ResetPassword extends REST_Controller {
         $this->load->database();
     }
 
+    //memperbaharui password
+    function index_put() {
+        $email = $this->put('email');
+        $data = array(
+            'password'=> $this->put('password'),
+        );
+        $this->db->where('email', $email);
+        $update = $this->db->update('member', $data);
+        if ($update) {
+            $this->response($data, 200);
+        } else {
+            $this->response(array('status' => 'fail', 502));
+        }
+    }
 
     //digunakan untuk membuat akun baru
     function index_get() {

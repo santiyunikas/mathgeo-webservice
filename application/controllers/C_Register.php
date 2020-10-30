@@ -54,7 +54,7 @@ class C_Register extends REST_Controller {
     //digunakan untuk membuat format email dan mengirimnya
     function sendEmailVerification($data){
         $to = $data['email'];
-        $subject = 'Santi dari MathGeo';
+        $subject = 'Registrasi Akun MathGeo';
         $message = '
                 <p><strong>Dear '.$data['nama_lengkap'].'</strong></p>
                 <p>Terimakasih telah melakukan registrasi!</p>
