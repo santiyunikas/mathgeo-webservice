@@ -32,7 +32,7 @@ class C_Register extends REST_Controller {
         }
     }
 
-    function generate_string($input, $strength = 16) {
+    function generate_string($input, $strength) {
       $input_length = strlen($input);
       $random_string = '';
       for($i = 0; $i < $strength; $i++) {
@@ -46,7 +46,7 @@ class C_Register extends REST_Controller {
     //digunakan untuk membuat akun baru
     function index_post() {
         $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $kode_referal = generate_string($permitted_chars, 7);
+        $kode_referal = $this->generate_string($permitted_chars, 7);
         $data = array(
             'id_member'=>$this->post('id_member'),
             'email'=> $this->post('email'),
