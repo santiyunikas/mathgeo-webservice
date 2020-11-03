@@ -32,15 +32,30 @@ class C_Register extends REST_Controller {
         }
     }
 
+    function generate_string($input, $strength = 16) {
+      $input_length = strlen($input);
+      $random_string = '';
+      for($i = 0; $i < $strength; $i++) {
+          $random_character = $input[mt_rand(0, $input_length - 1)];
+          $random_string .= $random_character;
+      }
+   
+      return $random_string;
+    }
+
     //digunakan untuk membuat akun baru
     function index_post() {
+        $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $kode_referal = generate_string($permitted_chars, 7);
         $data = array(
             'id_member'=>$this->post('id_member'),
             'email'=> $this->post('email'),
             'password'=> $this->post('password'),
             'nama_lengkap'=> $this->post('nama_lengkap'),
             'nomor_telepon'=> $this->post('nomor_telepon'),
-            'active'=> 0
+            'active'=> 0,
+            'kode_referal'=> $kode_referal,
+            'jumlah_koin' => 0
         );
         $insert = $this->db->insert('member', $data);
         if ($insert) {
