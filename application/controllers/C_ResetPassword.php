@@ -29,9 +29,8 @@ class C_ResetPassword extends REST_Controller {
         }
     }
 
-    //digunakan untuk membuat akun baru
+    //digunakan untuk membuat otp baru
     function index_get() {
-        
         $fourdigitrandom = rand(1000,9999);
         $otp = $fourdigitrandom;
 
@@ -39,8 +38,8 @@ class C_ResetPassword extends REST_Controller {
 
         $data = array(
             'email'=> $email,
-            'otp'=>$otp,
-            'active'=>1
+            'otp'=> $otp,
+            'active'=> 1
         );
 
         $this->db->where('email', $email);
