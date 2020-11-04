@@ -13,13 +13,13 @@ class C_EditProfile extends REST_Controller {
     }
 
     function index_put() {
-        $id = $this->put('id');
+        $id = $this->put('id_member');
         $data = array(
             'nama_lengkap'=> $this->put('nama_lengkap'),
             'nomor_telepon'=> $this->put('nomor_telepon'),
             'email'=> $this->put('email')
         );
-        $this->db->where('id', $id);
+        $this->db->where('id_member', $id);
         $update = $this->db->update('member', $data);
         if ($update) {
             $this->response($data, 200);
