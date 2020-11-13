@@ -30,7 +30,7 @@ class C_StatusMengerjakanLatihan extends REST_Controller {
         $data = array(
             'id_member'=>$this->post('id_member'),
             'id_latihan'=> $this->post('id_latihan'),
-            'status_mengerjakan'=> 1,
+            'status_pengerjaan'=> 1,
             'nilai'=> $this->post('nilai')
         );
         $insert = $this->db->insert('status_mengerjakan_latihan', $data);
