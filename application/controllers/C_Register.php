@@ -45,7 +45,7 @@ class C_Register extends REST_Controller {
 
     //digunakan untuk membuat akun baru
     function index_post() {
-        $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $permitted_chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $kode_referal = $this->generate_string($permitted_chars, 7);
         $data = array(
             'id_member'=>$this->post('id_member'),
