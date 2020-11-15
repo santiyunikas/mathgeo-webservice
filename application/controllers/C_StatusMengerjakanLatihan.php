@@ -15,11 +15,11 @@ class C_StatusMengerjakanLatihan extends REST_Controller {
     function index_get() {
         $id_latihan = $this->get('id_latihan');
         $id_member = $this->get('id_member');
-        if ($id_member == '') {
+        if ($id_member == '' && $id_latihan == '') {
             $reviewLatihan = $this->db->get('status_mengerjakan_latihan')->result();
         } else {
-            $array = array('id_latihan =' => $id_latihan,
-                            'id_member =' => $id_member);
+            $array = array('id_member =' => $id_member,
+                            'id_latihan =' => $id_latihan);
             $this->db->where($array);
             $reviewLatihan = $this->db->get('status_mengerjakan_latihan')->result();
         }
