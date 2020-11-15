@@ -21,7 +21,7 @@ class C_DetailQuiz extends REST_Controller {
             $this->db->where('id_quiz', $id_quiz);
             $soal_quiz = $this->db->get('soal_quiz')->result();
         }
-        $this->response($soal_lquiz, 200);
+        $this->response($soal_quiz, 200);
     }
 
 }
