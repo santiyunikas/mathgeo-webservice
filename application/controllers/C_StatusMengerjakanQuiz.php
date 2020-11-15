@@ -15,7 +15,7 @@ class C_StatusMengerjakanQuiz extends REST_Controller {
     function index_get() {
         $id_quiz = $this->get('id_quiz');
         $id_member = $this->get('id_member');
-        if ($id_member == '') {
+        if ($id_member == '' || $id_quiz == '') {
             $reviewQuiz = $this->db->get('status_mengerjakan_quiz')->result();
         } else {
             $array = array('id_quiz =' => $id_quiz,
