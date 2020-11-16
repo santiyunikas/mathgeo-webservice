@@ -13,11 +13,11 @@ class C_PembahasanLatihan extends REST_Controller {
     }
 
     function index_get() {
-        $id_soal = $this->get('id_soal');
-        if ($id_soal == '') {
+        $id_latihan = $this->get('id_latihan');
+        if ($id_latihan == '') {
             $pembahasan = $this->db->get('pembahasan_soal_latihan')->result();
         } else {
-            $this->db->where('id_soal', $id_soal);
+            $this->db->where('id_latihan', $id_latihan);
             $pembahasan = $this->db->get('pembahasan_soal_latihan')->result();
         }
         $this->response($pembahasan, 200);
