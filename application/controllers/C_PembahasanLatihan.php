@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 require APPPATH . '/libraries/REST_Controller.php';
 use Restserver\Libraries\REST_Controller;
 
-class C_Login extends REST_Controller {
+class C_PembahasanLatihan extends REST_Controller {
 
     function __construct($config = 'rest') {
         parent::__construct($config);
