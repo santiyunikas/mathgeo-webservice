@@ -95,46 +95,26 @@ $query_builder = TRUE;
 // 	'save_queries' => TRUE
 // );
 
-// $db['default'] = array(
-// 	'dsn'	=> '',
-// 	'hostname' => 'mathgeo.ub-learningtechnology.com',
-// 	'username' => 'ublearni_mathgeo_root',
-// 	'password' => 'mathgeo_root',
-// 	'database' => 'ublearni_mathgeo',
-// 	'dbdriver' => 'mysqli',
-// 	'dbprefix' => '',
-// 	'pconnect' => FALSE,
-// 	'db_debug' => TRUE,
-// 	'cache_on' => FALSE,
-// 	'cachedir' => '',
-// 	'char_set' => 'utf8',
-// 	'dbcollat' => 'utf8_general_ci',
-// 	'swap_pre' => '',
-// 	'encrypt' => FALSE,
-// 	'compress' => FALSE,
-// 	'stricton' => FALSE,
-// 	'failover' => array(),
-// 	'save_queries' => TRUE
-// );
-
 $db['default'] = array(
-	'DSN'      => '',
+	'dsn'	=> '',
 	'hostname' => 'mathgeo.ub-learningtechnology.com',
 	'username' => 'ublearni_mathgeo_root',
 	'password' => 'mathgeo_root',
 	'database' => 'ublearni_mathgeo',
-	'DBDriver' => 'mysqli',
-	'DBPrefix' => '',
-	'pConnect' => TRUE,
-	'DBDebug'  => TRUE,
-	'cacheOn'  => FALSE,
-	'cacheDir' => '',
-	'charset'  => 'utf8',
-	'DBCollat' => 'utf8_general_ci',
-	'swapPre'  => '',
+	'dbdriver' => 'mysqli',
+	'dbprefix' => '',
+	'pconnect' => TRUE,
+	'db_debug' => TRUE,
+	'cache_on' => FALSE,
+	'cachedir' => '',
+	'char_set' => 'utf8',
+	'dbcollat' => 'utf8_general_ci',
+	'swap_pre' => '',
 	'encrypt'  => FALSE,
 	'compress' => FALSE,
 	'strictOn' => FALSE,
-	'failover' => array()
+	'failover' => array(),
+	'save_queries' => TRUE
 );
+
 ?>
